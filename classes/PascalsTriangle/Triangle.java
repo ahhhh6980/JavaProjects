@@ -79,7 +79,7 @@ public class Triangle{
     for(int i = 0; i < r-1; i++){
       temp+=this.triangle.get(r-2).get(i)+space;
     }
-      return(temp);
+      return temp;
   }
 
   //returns number n of row r as a string
@@ -102,6 +102,39 @@ public class Triangle{
       temp2+=temp+this.returnRow(i)+"\n";
     }
     return(temp2);
+  }
+
+  //Fractal version of returnRow; odd numbers are symbols, even numbers are spaces
+  public String fractalRow(int r){
+    
+    String temp = "";
+    //iterates through each number of a row 
+    for(int i = 0; i < r-1; i++){
+      if(this.triangle.get(r-2).get(i).mod(new BigInteger("2")).compareTo(new BigInteger("1"))==-1){
+        temp+="  ";
+      } else {
+        temp+="▲ ";
+      }
+    }
+    return temp;
+  }
+
+  //prints a fractal based on filtering out even numbers, and displaying a symbol instead of the odd numbers
+  public String toFractal(){
+    String temp = "";
+    
+    String temp2 = "";
+
+    //adds each row as a string by iterating through each row of the triangle
+    //fractal version
+    for(int i = 0; i <this.rows+2; i++){
+      temp = "";
+      for(int i2 = (((rows*2)-(i-1))*2)/2-1 ; i2>=0; i2--){
+        temp+=" ";
+      }
+      temp2+=temp+this.fractalRow(i)+"\n";
+    }
+    return temp2;
   }
 
   //returns the number of rows
